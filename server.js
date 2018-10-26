@@ -16,6 +16,6 @@ app.get('/',function(req, res){
 });
 
 app.listen(port, function(){
-    console.log(`Example app listening on port ${port}!`);
+    console.log(`Youtube Radio CLI listening on port ${port}!`);
     open('http://localhost:5002/');
 })

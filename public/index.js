@@ -51,6 +51,7 @@ let options = {
         // 'onStateChange': onPlayerStateChange
     },
     autoplay: 1,
+    mute: 0,
 }
 function next() {
     player.stopVideo()
@@ -58,6 +59,22 @@ function next() {
         i = i + 1;
     } else {
         i = 0;
+    }
+    options.videoId = genre[i];
+    player.cueVideoById({
+        'videoId' : genre[i]
+    })
+    // onYouTubeIframeAPIReady();
+    player.playVideo();
+    console.log(options.videoId);
+}
+
+function previous(){
+    player.stopVideo()
+    if (genre[i-1]){
+        i = i - 1;
+    } else {
+        i = genre.length -1;
     }
     options.videoId = genre[i];
     player.cueVideoById({
