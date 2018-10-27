@@ -24,6 +24,7 @@
         border-radius: 50%;
         cursor: pointer;
     }
+    
     h1{
         text-align: center;
         position: relative;
@@ -32,6 +33,12 @@
         font-size: 70px;
         color: whitesmoke;
         opacity: .8;
+    }
+    #square{
+        line-height: 1.2;
+    }
+    #square:hover{
+        color: turquoise;
     }
     #relax{
         font-size: 100px;
@@ -64,7 +71,7 @@
         width: 75px;
         border-radius: 50%;
         margin: 50px;
-        line-height: 1.1;
+        line-height: 1;
         cursor: pointer;
     }
     .button:hover, i:hover{
@@ -89,10 +96,13 @@
     <h1 id="relax">Relax</h1>
 <div class="container">
     <div class='button' onclick="previous()">
-        <h1><</h1>    
+        <h1>&#x219C;</h1>    
+    </div>
+    <div>
+        <h1 id="square" class="button" onclick="pausePlay()">&#x25a0;</h1>
     </div>
     <div class='button' onclick="next()">
-        <h1>></h1>
+        <h1>&#x219D;</h1>
     </div>
 </div>
     <div id="videoDiv">

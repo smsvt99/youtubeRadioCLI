@@ -1,4 +1,6 @@
 let i = 0;
+let playing;
+playing = true;
 
 let jazz = ['NsB2eya4nFA', 'rNg90PU7Y1s', '2ccaHpy5Ewo', 'zab985qDgnU', 'oQg4VCw24Qo']
 let lofi = ['hHW1oY26kxQ','vFtX7iqnKUk','5AEbq6X33A8','c_IVcbEez8o','2L9vFNMvIBE']
@@ -110,4 +112,23 @@ function playCartoons(){
         'videoId' : genre[i]
     });
     player.playVideo();
+}
+function pausePlay(){
+    if (playing === true){
+        playing = false;
+        player.stopVideo();
+        document.getElementById('square').style.fontSize = "40px";
+        document.getElementById('square').innerHTML = "&#x25BA;";
+        document.getElementById('square').style.lineHeight = "2.1";
+    } else if (playing === false){
+        playing = true;
+        player.playVideo();
+        document.getElementById('square').style.fontSize = "70px";
+        document.getElementById('square').innerHTML = "&#x25a0;";
+        document.getElementById('square').style.lineHeight = "1.2";
+
+    } 
+}
+function hawaii(){
+    document.getElementById("background").src="city.webm"
 }
