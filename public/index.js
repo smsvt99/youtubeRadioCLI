@@ -1,10 +1,13 @@
 let i = 0;
+let j = 0
 let playing;
 playing = true;
+let hidden;
 
 let jazz = ['NsB2eya4nFA', 'rNg90PU7Y1s', '2ccaHpy5Ewo', 'zab985qDgnU', 'oQg4VCw24Qo']
 let lofi = ['hHW1oY26kxQ','vFtX7iqnKUk','5AEbq6X33A8','c_IVcbEez8o','2L9vFNMvIBE']
 let cartoons = ['01ecIQdpjWk','1FUjJzJ4V-I','itX0a6-OVpk','6bRO7nFroYc']
+let themes = ['turntable.mp4', 'city.webm', 'hawaii.webm']
 
 let genre = jazz
 
@@ -130,5 +133,53 @@ function pausePlay(){
     } 
 }
 function hawaii(){
-    document.getElementById("background").src="city.webm"
+    document.getElementById("background").src="hawaii.webm"
+}
+
+window.addEventListener('mousemove', function(){
+
+})
+// window.onload = function(){
+//     console.log('page loaded')
+// hideButtons = setTimeout(function(){
+//     document.getElementById('square').setAttribute('class', 'animated')
+//     document.getElementById('square').setAttribute('class', 'bounce')
+// }, 1000)
+// }
+$(document).ready(function(){
+    hideButtons = setTimeout(function(){
+        $(".button").addClass('animated fadeOutDown');
+        $("#hamburger").addClass('animated fadeOutDown')
+    }, 3000)
+    window.addEventListener('mousemove', function(){
+        if(hidden){
+            hidden = false
+            $(".button").removeClass('animated fadeOutDown')
+            $(".button").addClass('animated fadeInUp')
+            $("#hamburger").removeClass('animated fadeOutDown')
+            $("#hamburger").addClass('animated fadeInUp')
+        }
+        clearTimeout(hideButtons)
+        hideButtons = setTimeout(function(){
+            $(".button").addClass('animated fadeOutDown')
+            $("#hamburger").addClass('animated fadeOutDown')
+        hidden = true}, 3000)
+    })
+})
+
+function showDropdown(){
+    if (document.getElementById('dropdown').style.display === 'none'){
+    document.getElementById('dropdown').style.display = 'flex';}
+    else {
+    document.getElementById('dropdown').style.display = 'none';}
+    }
+
+function changeTheme(){
+    if (themes[j+1]){
+        j = j + 1
+        document.getElementById('background').src = themes[j]
+    } else {
+        j = 0
+        document.getElementById('background').src = themes[j]
+    }
 }

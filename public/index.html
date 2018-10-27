@@ -87,12 +87,40 @@
         flex-direction: row;
         justify-content: center
     }
+    #dropdown{
+        display: none;
+        flex-direction: column;
+    }
+    .menuItem{
+        position: relative;
+        z-index: 2;
+        font-size: 40px;
+        color:whitesmoke;
+        background: rgba(10,15,10, .6);
+        width: 25%;
+        cursor: pointer;
+        border-radius: 5px;
+        text-align: center;
+        border: 1px solid whitesmoke
+    }
+    .menuItem:hover{
+        background: rgba(16,25,16, .7);
+        color: turquoise;
+    }
     </style>
 </head>
 
 <body>
     <!-- <h1>Youtube Radio</h1> -->
-    <i class="fas fa-bars"></i>
+    <i id="hamburger" class="fas fa-bars" onclick="showDropdown()"></i>
+    <div id="dropdown">
+        <div class="menuItem">
+            Change Genre
+        </div>
+        <div class="menuItem" onclick="changeTheme()">
+            Change Theme
+        </div>
+    </div>
     <h1 id="relax">Relax</h1>
 <div class="container">
     <div class='button' onclick="previous()">
@@ -120,8 +148,13 @@
     </div>
     <div id="player"></div>
 
+    <script
+    src="https://code.jquery.com/jquery-3.3.1.min.js"
+    integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
+    crossorigin="anonymous"></script>
     <script src="index.js">
     </script>
+ <link href="https://fastcdn.org/Animate.css/3.4.0/animate.min.css" rel="stylesheet">
 
 </body>
 
