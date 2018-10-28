@@ -7,7 +7,7 @@ let hidden;
 let jazz = ['NsB2eya4nFA', 'rNg90PU7Y1s', '2ccaHpy5Ewo', 'zab985qDgnU', 'oQg4VCw24Qo']
 let lofi = ['hHW1oY26kxQ','vFtX7iqnKUk','5AEbq6X33A8','c_IVcbEez8o','2L9vFNMvIBE']
 let cartoons = ['01ecIQdpjWk','1FUjJzJ4V-I','itX0a6-OVpk','6bRO7nFroYc']
-let themes = ['turntable.mp4', 'city.webm', 'hawaii.webm']
+let themes = ['turntable.mp4', 'lighthouse.mp4', 'city.webm', 'river.mp4', 'grass.mp4', 'camp.mp4', ]
 
 let genre = jazz
 
@@ -183,3 +183,25 @@ function changeTheme(){
         document.getElementById('background').src = themes[j]
     }
 }
+
+function animateTitle(){
+
+    colors = ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
+   setInterval(function(){
+    $("#relax").removeClass('animated fadeInDown')
+    $("#relax").addClass('animated fadeOutUp')
+    setTimeout(function(){
+        if (document.getElementById('relax').textContent === 'Relax'){
+        document.getElementById("relax").textContent = 'Radio'
+    } else {
+        document.getElementById('relax').textContent = 'Relax'
+    }
+        $("#relax").removeClass('animated fadeOutUp')
+       document.getElementById("relax").style.color = colors[Math.floor(Math.random() * 9)]
+       document.getElementById("relax").style.opacity =  Math.random() + .1;
+       $("#relax").addClass('animated fadeInDown')
+    },4000)
+    }, 8000)
+};
+animateTitle();
+
