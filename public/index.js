@@ -4,12 +4,36 @@ let playing;
 playing = true;
 let hidden;
 
-let jazz = ['NsB2eya4nFA', 'rNg90PU7Y1s', '2ccaHpy5Ewo', 'zab985qDgnU', 'oQg4VCw24Qo']
-let lofi = ['hHW1oY26kxQ','vFtX7iqnKUk','5AEbq6X33A8','c_IVcbEez8o','2L9vFNMvIBE']
-let cartoons = ['01ecIQdpjWk','1FUjJzJ4V-I','itX0a6-OVpk','6bRO7nFroYc']
+// let jazz = ['NsB2eya4nFA', 'rNg90PU7Y1s', '2ccaHpy5Ewo', 'zab985qDgnU', 'oQg4VCw24Qo']
+// let lofi = ['hHW1oY26kxQ','vFtX7iqnKUk','5AEbq6X33A8','c_IVcbEez8o','2L9vFNMvIBE']
+// let cartoons = ['01ecIQdpjWk','1FUjJzJ4V-I','itX0a6-OVpk','6bRO7nFroYc']
 let themes = ['turntable.mp4', 'lighthouse.mp4', 'city.webm', 'river.mp4', 'grass.mp4', 'camp.mp4', ]
 
-let genre = jazz
+let stations = [
+    ['NsB2eya4nFA', "Night of Smooth Jazz", 'jazz'],
+    ['rNg90PU7Y1s', 'Autumn Jazz', 'jazz'],
+    ['2ccaHpy5Ewo', 'Relaxing Jazz and Bossa Nova', 'jazz'],
+    ['zab985qDgnU', 'Relaxing Rainy Jazz', 'jazz'],
+    ['oQg4VCw24Qo', 'Morning Jazz and Bossa Nova', 'jazz'],
+    ['hHW1oY26kxQ', 'Lofi Hip Hop Radio', 'lofi'],
+    ['vFtX7iqnKUk', 'Lofi Hip Hop Radio for Study', 'lofi'],
+    ['5AEbq6X33A8', '24/7 Lofi Hip Hop', 'lofi'],
+    ['c_IVcbEez8o', 'Lofi Hip Hop for Sleep', 'lofi'],
+    ['2L9vFNMvIBE', '24/7 Smooth Beats', 'lofi']
+]
+let genres = {}
+
+function sortStations(){
+    for (let i = 0; i < stations.length; i++){
+        if (genres[stations[i][2]] == undefined){
+            genres[stations[i][2]] = [];
+        }
+        genres[stations[i][2]].push(stations[i])
+    }
+}
+sortStations();
+
+let genre = 'jazz'
 
 var tag = document.createElement('script');
 
@@ -168,10 +192,10 @@ $(document).ready(function(){
 })
 
 function showDropdown(){
-    if (document.getElementById('dropdown').style.display === 'none'){
-    document.getElementById('dropdown').style.display = 'flex';}
-    else {
+    if (document.getElementById('dropdown').style.display === 'flex'){
     document.getElementById('dropdown').style.display = 'none';}
+    else {
+    document.getElementById('dropdown').style.display = 'flex';}
     }
 
 function changeTheme(){
@@ -192,16 +216,14 @@ function animateTitle(){
     $("#relax").addClass('animated fadeOutUp')
     setTimeout(function(){
         if (document.getElementById('relax').textContent === 'Relax'){
-        document.getElementById("relax").textContent = 'Radio'
+        document.getElementById("relax").textContent = 'Enjoy YouTube Radio'
     } else {
         document.getElementById('relax').textContent = 'Relax'
     }
         $("#relax").removeClass('animated fadeOutUp')
-       document.getElementById("relax").style.color = colors[Math.floor(Math.random() * 9)]
-       document.getElementById("relax").style.opacity =  Math.random() + .1;
        $("#relax").addClass('animated fadeInDown')
-    },4000)
-    }, 8000)
+    },10000)
+    }, 20000)
 };
 animateTitle();
 

@@ -44,6 +44,9 @@
     }
     #relax{
         font-size: 100px;
+        /* animation: neon2 1.5s ease-in-out infinite alternate;
+        -webkit-animation: neon2 1.5s ease-in-out infinite alternate;
+        -moz-animation: neon2 1.5s ease-in-out infinite alternate; */
     }
     #videoDiv{
         position: absolute;
@@ -66,7 +69,6 @@
     }
     .button{
         position: relative;
-        top: 200px;
         z-index: 2;
         background: rgba(10,15,10, .6);
         height: 75px;
@@ -87,12 +89,15 @@
         z-index: 2;
         display: flex;
         flex-direction: row;
-        justify-content: center
+        justify-content: center;
+        width: 100%;
+        position: absolute;
+        bottom: 3%;
     }
     #dropdown{
         position: absolute;
         right: 25px;
-        top: 130px;
+        top: 200px;
         display: none;
         flex-direction: column;
         width: 25%;
@@ -125,6 +130,9 @@
         </div>
         <div class="menuItem" onclick="changeTheme()">
             Change Theme
+        </div>
+        <div class="menuItem">
+            Add Station
         </div>
     </div>
     <h1 id="relax">Relax</h1>
