@@ -1,28 +1,44 @@
+//index within a genre
 let i = 0;
+//index for themes
 let j = 0
-let playing;
-playing = true;
+//index between genres
+let k = 0
+
+let playing = true;
 let hidden;
+let genre;
+let genreNamesArray = [];
+let genres = {}
+let timeout;
+let interval;
+
 
 // let jazz = ['NsB2eya4nFA', 'rNg90PU7Y1s', '2ccaHpy5Ewo', 'zab985qDgnU', 'oQg4VCw24Qo']
 // let lofi = ['hHW1oY26kxQ','vFtX7iqnKUk','5AEbq6X33A8','c_IVcbEez8o','2L9vFNMvIBE']
 // let cartoons = ['01ecIQdpjWk','1FUjJzJ4V-I','itX0a6-OVpk','6bRO7nFroYc']
-let themes = ['turntable.mp4', 'lighthouse.mp4', 'city.webm', 'river.mp4', 'grass.mp4', 'camp.mp4', ]
+let themes = ['lighthouse.mp4','turntable.mp4', 'city.webm', 'river.mp4', 'grass.mp4', 'camp.mp4', ]
 
 let stations = [
-    ['NsB2eya4nFA', "Night of Smooth Jazz", 'jazz'],
-    ['rNg90PU7Y1s', 'Autumn Jazz', 'jazz'],
-    ['2ccaHpy5Ewo', 'Relaxing Jazz and Bossa Nova', 'jazz'],
-    ['zab985qDgnU', 'Relaxing Rainy Jazz', 'jazz'],
-    ['oQg4VCw24Qo', 'Morning Jazz and Bossa Nova', 'jazz'],
+    ['NsB2eya4nFA', "Night of Smooth Jazz Radio", 'jazz'],
+    ['rNg90PU7Y1s', 'Autumn Jazz Radio', 'jazz'],
+    ['2ccaHpy5Ewo', 'Relaxing Jazz and Bossa Nova Radio', 'jazz'],
+    ['zab985qDgnU', 'Relaxing Rainy Jazz Radio', 'jazz'],
+    ['oQg4VCw24Qo', 'Morning Jazz and Bossa Nova Radio', 'jazz'],
+    ['GsE5nhj-nm4', 'Morning Coffee Jazz and Bossa Nova', 'jazz'],
     ['hHW1oY26kxQ', 'Lofi Hip Hop Radio', 'lofi'],
     ['vFtX7iqnKUk', 'Lofi Hip Hop Radio for Study', 'lofi'],
-    ['5AEbq6X33A8', '24/7 Lofi Hip Hop', 'lofi'],
-    ['c_IVcbEez8o', 'Lofi Hip Hop for Sleep', 'lofi'],
-    ['2L9vFNMvIBE', '24/7 Smooth Beats', 'lofi']
+    ['5AEbq6X33A8', '24/7 Lofi Hip Hop Radio', 'lofi'],
+    ['c_IVcbEez8o', 'Lofi Hip Hop for Sleep Radio', 'lofi'],
+    ['2L9vFNMvIBE', '24/7 Smooth Beats Radio', 'lofi']
 ]
-let genres = {}
-
+function readCookies(){
+    let cookies = Cookies.get();
+    for (let cookie in cookies){
+        stations.push(JSON.parse(cookies[cookie]));
+    }
+}
+readCookies()
 function sortStations(){
     for (let i = 0; i < stations.length; i++){
         if (genres[stations[i][2]] == undefined){
@@ -33,7 +49,19 @@ function sortStations(){
 }
 sortStations();
 
-let genre = 'jazz'
+function makeGenreNamesArray(){
+    for (key in genres){
+        if (!genreNamesArray[key]){
+            genreNamesArray.push(key)
+        }
+    }
+}
+makeGenreNamesArray();
+
+function setGenre(){
+    genre = genres[genreNamesArray[k]]
+}
+setGenre();
 
 var tag = document.createElement('script');
 
@@ -46,27 +74,12 @@ function onYouTubeIframeAPIReady() {
     player = new YT.Player('player', options);
 }
 
-//    DEFAULT ID M7lc1UVf-VE
-
-
 function onPlayerReady(event) {
     options.videoId = genre[i];
     event.target.playVideo()
-  document.getElementById('jazzButton').click()
-
+//   document.getElementById('jazzButton').click()
 }
 
-// 5. The API calls this function when the player's state changes.
-//    The function indicates that when playing a video (state=1),
-//    the player should play for six seconds and then stop.
-
-//   var done = false;
-//   function onPlayerStateChange(event) {
-//     if (event.data == YT.PlayerState.PLAYING && !done) {
-//       setTimeout(stopVideo, 6000);
-//       done = true;
-//     }
-//   }
 function stopVideo() {
     player.stopVideo();
 }
@@ -95,7 +108,9 @@ function next() {
     })
     // onYouTubeIframeAPIReady();
     player.playVideo();
+    showNowPlaying();
     console.log(options.videoId);
+    showGenre()
 }
 
 function previous(){
@@ -111,35 +126,11 @@ function previous(){
     })
     // onYouTubeIframeAPIReady();
     player.playVideo();
+    showNowPlaying();
     console.log(options.videoId);
+    showGenre()
 }
 
-function playLofi(){
-    i = 0;
-    genre = lofi;
-    player.cueVideoById({
-        'videoId' : genre[i]
-    });
-    player.playVideo();
-}
-
-function playJazz(){
-    i = 0;
-    genre = jazz;
-    player.cueVideoById({
-        'videoId' : genre[i]
-    });
-    player.playVideo();
-}
-
-function playCartoons(){
-    i = 0;
-    genre = cartoons;
-    player.cueVideoById({
-        'videoId' : genre[i]
-    });
-    player.playVideo();
-}
 function pausePlay(){
     if (playing === true){
         playing = false;
@@ -156,37 +147,25 @@ function pausePlay(){
 
     } 
 }
-function hawaii(){
-    document.getElementById("background").src="hawaii.webm"
-}
 
-window.addEventListener('mousemove', function(){
-
-})
-// window.onload = function(){
-//     console.log('page loaded')
-// hideButtons = setTimeout(function(){
-//     document.getElementById('square').setAttribute('class', 'animated')
-//     document.getElementById('square').setAttribute('class', 'bounce')
-// }, 1000)
-// }
+//Make buttons dissappear and reappear with mouse movement
 $(document).ready(function(){
     hideButtons = setTimeout(function(){
         $(".button").addClass('animated fadeOutDown');
         $("#hamburger").addClass('animated fadeOutDown')
-    }, 3000)
+    }, 5000)
     window.addEventListener('mousemove', function(){
         if(hidden){
             hidden = false
             $(".button").removeClass('animated fadeOutDown')
             $(".button").addClass('animated fadeInUp')
-            $("#hamburger").removeClass('animated fadeOutDown')
-            $("#hamburger").addClass('animated fadeInUp')
+            $("#hamburger").removeClass('animated fadeOutRight')
+            $("#hamburger").addClass('animated fadeInRight')
         }
         clearTimeout(hideButtons)
         hideButtons = setTimeout(function(){
             $(".button").addClass('animated fadeOutDown')
-            $("#hamburger").addClass('animated fadeOutDown')
+            $("#hamburger").addClass('animated fadeOutRight')
         hidden = true}, 3000)
     })
 })
@@ -209,21 +188,75 @@ function changeTheme(){
 }
 
 function animateTitle(){
-
-    colors = ['black', 'white', 'red', 'orange', 'yellow', 'green', 'blue', 'indigo', 'violet']
-   setInterval(function(){
-    $("#relax").removeClass('animated fadeInDown')
+   interval = setInterval(function(){
+    $("#relax").removeClass('animated fadeInDown fadeOutUp')
     $("#relax").addClass('animated fadeOutUp')
-    setTimeout(function(){
+    timeout = setTimeout(function(){
         if (document.getElementById('relax').textContent === 'Relax'){
-        document.getElementById("relax").textContent = 'Enjoy YouTube Radio'
+        document.getElementById("relax").innerHTML = `${genre[i][1]}`
     } else {
         document.getElementById('relax').textContent = 'Relax'
     }
-        $("#relax").removeClass('animated fadeOutUp')
+        $("#relax").removeClass('animated fadeOutUp fadeInDown')
        $("#relax").addClass('animated fadeInDown')
-    },10000)
-    }, 20000)
+    },1000)
+    }, 8000)
 };
 animateTitle();
 
+function changeGenre(){
+    i = 0
+    if (genres[genreNamesArray[k + 1]]){
+        k = k + 1
+    } else {
+        k = 0
+    }
+    setGenre()
+    player.cueVideoById({
+        'videoId' : genre[i]
+    });
+    showNowPlaying()
+    showGenre()
+    player.playVideo();
+}
+
+function showNowPlaying(){
+    clearTimeout(timeout);
+    clearInterval(interval);
+    document.getElementById('relax').innerHTML = `${genre[i][1]}`;
+    $("#relax").removeClass('animated fadeInDown fadeOutUp');
+    $("#relax").addClass('animated fadeInDown');
+    animateTitle();
+}
+
+function showForm(){
+    document.getElementById('formDiv').style.display='block'
+}
+function hideForm(){
+    document.getElementById('formDiv').style.display='none'
+}
+
+function submitForm(){
+    let array = [];
+    array.push(document.getElementById('url').value);
+    array.push(document.getElementById('title').value);
+    array.push(document.getElementById('genre').value);
+
+    document.getElementById('url').value = "";
+    document.getElementById('title').value = "";
+    document.getElementById('genre').value = "";
+    
+    hideForm();
+
+    Cookies.set(array[1], array, { expires: 1000 });
+    
+    readCookies();
+    sortStations();
+    makeGenreNamesArray();
+    setGenre();
+    showNowPlaying();
+}
+function showGenre(){
+    document.getElementById('genreDisplay').textContent = genreNamesArray[k] + ' ' + (i + 1) + '/' + genre.length
+}
+showGenre()
